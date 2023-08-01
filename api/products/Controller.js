@@ -2,51 +2,51 @@ const mongoose = require('mongoose')
 require('dotenv').config()
 const Product = require('./Schema');
 
-const getProducts = (req, res) => {
-    res.json({
-        products: [
-            {
-                "id": 1,
-                "title": "iPhone 9",
-                "description": "An apple mobile which is nothing like apple",
-                "price": 549,
-                "discountPercentage": 12.96,
-                "rating": 4.69,
-                "stock": 94,
-                "brand": "Apple",
-                "category": "smartphones",
-                "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
-                "images": [
-                    "https://i.dummyjson.com/data/products/1/1.jpg",
-                    "https://i.dummyjson.com/data/products/1/2.jpg",
-                    "https://i.dummyjson.com/data/products/1/3.jpg",
-                    "https://i.dummyjson.com/data/products/1/4.jpg",
-                    "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
-                ]
-            },
-            {
-                "id": 2,
-                "title": "iPhone X",
-                "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
-                "price": 899,
-                "discountPercentage": 17.94,
-                "rating": 4.44,
-                "stock": 34,
-                "brand": "Apple",
-                "category": "smartphones",
-                "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
-                "images": [
-                    "https://i.dummyjson.com/data/products/2/1.jpg",
-                    "https://i.dummyjson.com/data/products/2/2.jpg",
-                    "https://i.dummyjson.com/data/products/2/3.jpg",
-                    "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
-                ]
-            },
-        ]
+const Productbybrand = async (req,res) => {
 
-    })
+    const { brand } = req.params
+    try {
+      await mongoose.connect(process.env.MONGO_URL)
+      const brands = await Product.findOne({ brand: brand })
+      res.json(
+          {
+            brands: brands
+          }
+        )
+
+    }
+    catch (error) {
+        res.json(
+            {
+                message: error.message
+            }
+        )
+
+    }
 }
 
+const Productbycategory = async (req,res) => {
+
+    const { brand } = req.params
+    try {
+      await mongoose.connect(process.env.MONGO_URL)
+      const categories = await Product.findOne({ category: category })
+      res.json(
+          {
+            categories: categories
+          }
+        )
+
+    }
+    catch (error) {
+        res.json(
+            {
+                message: error.message
+            }
+        )
+
+    }
+}
 
 
 const postProducts = async (req, res) => {
@@ -80,4 +80,4 @@ const postProducts = async (req, res) => {
 };
 
 
-module.exports = { getProducts, postProducts }
+module.exports = { Productbybrand, postProducts , Productbycategory}

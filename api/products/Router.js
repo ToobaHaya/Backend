@@ -1,8 +1,9 @@
 const app = require('express')
 const router = app.Router()
-const { getProducts, postProducts } = require('./Controller')
+const { Productbybrand, postProducts ,Productbycategory } = require('./Controller')
 
-router.get('/products', getProducts)
+router.get('/productsbybrand', Productbybrand)
+router.get('/Productbycategory', Productbycategory)
 router.post('/products', postProducts)
 
 module.exports = router
